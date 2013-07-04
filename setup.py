@@ -12,7 +12,8 @@ with open(os.path.join(here, 'pyramid_fullauth', '__init__.py')) as v_file:
 def read(fname):
     return open(os.path.join(here, fname)).read()
 
-requirements = ['pyramid >=1.4',
+requirements = ['pyramid_localize',
+                'pyramid >=1.4',
                 'tzf.pyramid_yml >= 0.2',
                 'pyramid_basemodel <=0.1.5, !=0.1.4',
                 # since all other versions contains requirements for inflect, which isn't python3 compatible
@@ -64,5 +65,9 @@ setup(
     test_suite='tests',
     include_package_data=True,
     zip_safe=False,
+    message_extractors={'pyramid_fullauth': [
+                          ('**.py', 'python', None),
+                          ('resources/templates/**.mako', 'mako', None),
+                          ('resources/static/**', 'ignore', None)]},
     extras_require=extras_require,
 )
